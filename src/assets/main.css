@@ -1,0 +1,38 @@
+@import './base.css';
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ===== Element Plus 茶白暖杏全局覆盖 ===== */
+:root {
+  --el-color-primary: #c68b5e;
+  --el-color-primary-light-3: rgba(198, 139, 94, 0.4);
+  --el-color-primary-light-5: rgba(198, 139, 94, 0.2);
+  --el-color-primary-light-7: rgba(198, 139, 94, 0.08);
+  --el-color-primary-light-8: rgba(198, 139, 94, 0.04);
+  --el-color-primary-light-9: rgba(198, 139, 94, 0.02);
+  --el-color-primary-dark-2: #a0724a;
+  --el-color-success: #7eb07e;
+  --el-color-warning: #c9a458;
+  --el-color-danger: #c97d7d;
+  --el-border-radius-base: 8px;
+  --el-border-radius-small: 6px;
+  --el-border-radius-round: 20px;
+  --el-border-radius-circle: 100%;
+  --el-box-shadow-light: 0 2px 12px rgba(170, 140, 110, 0.08);
+  --el-box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+}
+
+a {
+  text-decoration: none;
+  color: #c68b5e;
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: rgba(198, 139, 94, 0.12);
+  }
+}

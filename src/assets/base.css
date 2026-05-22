@@ -1,0 +1,94 @@
+/* 茶白暖杏 — 淡雅和风调性 */
+:root {
+  --vt-c-white: #faf7f2;
+  --vt-c-white-soft: #f5f0e8;
+  --vt-c-white-mute: #efe8dc;
+
+  --vt-c-black: #2d2520;
+  --vt-c-black-soft: #35302b;
+  --vt-c-black-mute: #4a3b34;
+
+  --vt-c-indigo: #4a3b34;
+
+  --vt-c-divider-light-1: rgba(170, 140, 110, 0.50);
+  --vt-c-divider-light-2: rgba(170, 140, 110, 0.25);
+  --vt-c-divider-dark-1: rgba(200, 180, 150, 0.45);
+  --vt-c-divider-dark-2: rgba(200, 180, 150, 0.25);
+
+  --vt-c-text-light-1: #4a3b34;
+  --vt-c-text-light-2: rgba(90, 70, 50, 0.70);
+  --vt-c-text-dark-1: #faf7f2;
+  --vt-c-text-dark-2: rgba(245, 240, 232, 0.75);
+
+  /* 茶白暖杏品牌色 */
+  --color-primary: #c68b5e;
+  --color-primary-light: #d4a574;
+  --color-primary-dark: #a0724a;
+  --color-accent: #b8860b;
+  --color-accent-light: #c9a458;
+  --color-warm-bg: #f8f3eb;
+}
+
+/* semantic color variables for this project */
+:root {
+  --color-background: var(--vt-c-white);
+  --color-background-soft: var(--vt-c-white-soft);
+  --color-background-mute: var(--vt-c-white-mute);
+
+  --color-border: var(--vt-c-divider-light-2);
+  --color-border-hover: var(--vt-c-divider-light-1);
+
+  --color-heading: var(--vt-c-text-light-1);
+  --color-text: var(--vt-c-text-light-1);
+
+  --section-gap: 160px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--vt-c-black);
+    --color-background-soft: var(--vt-c-black-soft);
+    --color-background-mute: var(--vt-c-black-mute);
+
+    --color-border: var(--vt-c-divider-dark-2);
+    --color-border-hover: var(--vt-c-divider-dark-1);
+
+    --color-heading: var(--vt-c-text-dark-1);
+    --color-text: var(--vt-c-text-dark-2);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

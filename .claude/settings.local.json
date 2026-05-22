@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx vue-tsc *)",
+      "Bash(npx vite *)",
+      "Bash(npm run *)",
+      "WebSearch",
+      "Bash(npx skills *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(mvn compile *)",
+      "Bash(where mvn *)",
+      "Bash(where mvnw *)",
+      "Read(//c/Program Files/**)",
+      "Bash(\"/c/Users/Administrator/.m2/wrapper/dists/apache-maven-3.9.4-bin/2vqnav6ufo1qvo5j2um40861m/apache-maven-3.9.4/bin/mvn\" compile *)",
+      "Bash(pnpm add *)",
+      "Bash(npm ls *)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(mvn -f D:/java_projects/ai-token-system/pom.xml compile -q)",
+      "Bash(jar tf *)",
+      "Bash(javap -p -cp spring-security-oauth2-authorization-server-1.3.2.jar org.springframework.security.oauth2.server.authorization.token.JwtGenerator)",
+      "Bash(javap -c -p -cp spring-security-oauth2-authorization-server-1.3.2.jar org.springframework.security.oauth2.server.authorization.token.JwtGenerator)",
+      "Bash(mvn spring-boot:run)",
+      "Bash(javap -cp spring-security-oauth2-authorization-server-1.3.2.jar org.springframework.security.oauth2.server.authorization.context.AuthorizationServerContext)",
+      "Bash(claude --version)",
+      "Bash(claude update *)",
+      "Bash(claude mcp *)",
+      "Bash(claude plugin *)",
+      "Bash(claude marketplace *)",
+      "Bash(git config *)",
+      "Bash(git *)",
+      "Bash(mvn clean *)",
+      "Bash(node *)"
+    ]
+  }
+}
