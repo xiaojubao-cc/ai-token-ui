@@ -12,7 +12,6 @@ const loading = ref(false)
 
 function getMonthRange() {
   const now = new Date()
-  const start = new Date(now.getFullYear(), now.getMonth(), 1)
   const p = (n: number) => String(n).padStart(2, '0')
   return {
     startTime: `${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(1)} 00:00:00`,
@@ -88,17 +87,29 @@ onMounted(() => {
     <p>欢迎回来，查看{{ authStore.businessName }} Token 使用情况。</p>
 
     <el-row :gutter="20" class="stat-row">
-      <el-col :span="8">
+      <el-col :span="6">
         <el-card shadow="hover">
-          <el-statistic title="我的 Token 消耗" :value="stats?.totalTokens ?? 0" />
+          <el-statistic title="Token 总消耗" :value="stats?.totalTokens ?? 0" />
         </el-card>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic title="输入 Token" :value="stats?.totalInputTokens ?? 0" />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic title="输出 Token" :value="stats?.totalOutputTokens ?? 0" />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
         <el-card shadow="hover">
           <el-statistic title="请求次数" :value="stats?.totalRequests ?? 0" />
         </el-card>
       </el-col>
-      <el-col :span="8">
+    </el-row>
+    <el-row :gutter="20" class="stat-row">
+      <el-col :span="6">
         <el-card shadow="hover">
           <el-statistic title="活跃 API Key" :value="stats?.activeUsers ?? 0" />
         </el-card>

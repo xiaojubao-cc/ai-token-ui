@@ -46,12 +46,12 @@ const router = createRouter({
           component: () => import('@/views/admin/TokenManagement.vue'),
           meta: { title: 'Token 管理' },
         },
-        {
-          path: 'models',
-          name: 'modelManagement',
-          component: () => import('@/views/admin/ModelManagement.vue'),
-          meta: { title: '模型管理' },
-        },
+        // {
+        //   path: 'models',
+        //   name: 'modelManagement',
+        //   component: () => import('@/views/admin/ModelManagement.vue'),
+        //   meta: { title: '模型管理' },
+        // },
         { path: '', redirect: 'dashboard' },
       ],
     },

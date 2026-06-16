@@ -19,6 +19,10 @@ http.interceptors.request.use((config) => {
 // 响应拦截器：统一处理错误
 http.interceptors.response.use(
   (response) => {
+    // blob 响应（如文件下载）跳过业务状态码检查
+    if (response.config.responseType === 'blob' || response.data instanceof Blob) {
+      return response
+    }
     const body = response.data
     // 后端返回的业务错误
     if (body.code !== 0 && body.code !== 200) {
@@ -30,10 +34,12 @@ http.interceptors.response.use(
   (error) => {
     if (error.response) {
       const { status, config } = error.response
+      // blob 响应错误时，data 为 Blob 无法直接读 .message
+      const isBlob = config?.responseType === 'blob' || error.response.data instanceof Blob
       if (status === 401) {
         // 登录接口的 401 是密码错误，不是 token 过期，不清理 token
         if (config.url?.includes('/auth/login')) {
-          const msg = error.response.data?.message || '用户名或密码错误'
+          const msg = (!isBlob && error.response.data?.message) || '用户名或密码错误'
           ElMessage.error(msg)
         } else {
           localStorage.removeItem('accessToken')
@@ -44,7 +50,7 @@ http.interceptors.response.use(
       } else if (status === 403) {
         ElMessage.error('没有访问权限')
       } else {
-        ElMessage.error(error.response.data?.message || '服务器错误')
+        ElMessage.error((!isBlob && error.response.data?.message) || '服务器错误')
       }
     } else {
       ElMessage.error('网络异常，请检查网络连接')

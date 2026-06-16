@@ -112,18 +112,18 @@ function roleTag(role: string) {
     <el-card shadow="never" class="table-card">
       <el-table :data="store.list" v-loading="store.loading" stripe>
         <el-table-column type="index" :index="(idx: number) => (query.page - 1) * query.pageSize + idx + 1" label="序号" width="70" />
-        <el-table-column prop="username" label="用户名" width="120" />
-        <el-table-column label="邮箱" width="180">
+        <el-table-column prop="username" label="用户名" min-width="140" show-overflow-tooltip />
+        <el-table-column label="邮箱" min-width="160" show-overflow-tooltip>
           <template #default="{ row }">
             {{ row.email || '-' }}
           </template>
         </el-table-column>
-        <el-table-column label="手机号" width="140">
+        <el-table-column label="手机号" min-width="130">
           <template #default="{ row }">
             {{ row.phone || '-' }}
           </template>
         </el-table-column>
-        <el-table-column label="角色" width="100">
+        <el-table-column label="角色" width="90">
           <template #default="{ row }">
             <el-tag :type="roleTag(row.role)" size="small">
               {{ row.role === 'ADMIN' ? '管理员' : '用户' }}
@@ -131,7 +131,6 @@ function roleTag(role: string) {
           </template>
         </el-table-column>
         <el-table-column prop="apiKeyCount" label="API Key数量" width="120" />
-        <el-table-column prop="associatedModels" label="关联模型" min-width="160" show-overflow-tooltip />
         <el-table-column label="状态" width="80">
           <template #default="{ row }">
             <el-tag :type="statusTag(row.status)" size="small">

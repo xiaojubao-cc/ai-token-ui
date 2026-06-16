@@ -15,10 +15,47 @@ export interface TokenUsageRecord {
   apikeyId: number
   apikey?: string
   businessName?: string
-  modelName?: string
   recordDate?: string
   tokens: number
+  inputTokens: number
+  outputTokens: number
   request: number
+  totalDuration: number
+  totalAmount: number
+  detail?: DetailItem[]
+}
+
+/** 模型详情 */
+export interface DetailItem {
+  name: string
+  stage: StageItem[]
+  amount: number
+  amountRequest: number
+  resolutionDuration: ResolutionDurationItem[]
+  resolutionToken: ResolutionTokenItem[]
+}
+
+/** 阶梯信息 */
+export interface StageItem {
+  inputTokens: number
+  outputTokens: number
+  minContext: number
+  maxContext: number
+}
+
+/** 分辨率时长 */
+export interface ResolutionDurationItem {
+  resolution: string
+  cnt: number
+  requestCount: number
+}
+
+/** 分辨率Token */
+export interface ResolutionTokenItem {
+  resolution: string
+  videoModeOutputToken: number
+  videoLessModeOutputToken: number
+  requestCount: number
 }
 
 /** Token 用量分页结果 */
@@ -32,6 +69,8 @@ export interface TokenUsagePageResult {
 /** 仪表盘统计数据 */
 export interface DashboardStats {
   totalTokens: number
+  totalInputTokens: number
+  totalOutputTokens: number
   totalRequests: number
   activeUsers: number
   trendData: TrendPoint[]

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { HomeFilled, User, Key, Coin, Cpu } from '@element-plus/icons-vue'
+import { HomeFilled, User, Key, Coin } from '@element-plus/icons-vue'
 
 defineProps<{ collapsed: boolean }>()
 
@@ -13,7 +13,6 @@ const menuMap: Record<string, string> = {
   users: '/admin/users',
   apikey: '/admin/apikey',
   tokens: '/admin/tokens',
-  models: '/admin/models',
 }
 
 const activeIndex = computed(() => {
@@ -22,7 +21,6 @@ const activeIndex = computed(() => {
   if (path.startsWith('/admin/users')) return 'users'
   if (path.startsWith('/admin/apikey')) return 'apikey'
   if (path.startsWith('/admin/tokens')) return 'tokens'
-  if (path.startsWith('/admin/models')) return 'models'
   return 'dashboard'
 })
 
@@ -54,10 +52,6 @@ function navigate(index: string) {
     <el-menu-item index="tokens">
       <el-icon><Coin /></el-icon>
       <template #title>Token 管理</template>
-    </el-menu-item>
-    <el-menu-item index="models">
-      <el-icon><Cpu /></el-icon>
-      <template #title>模型管理</template>
     </el-menu-item>
   </el-menu>
 </template>

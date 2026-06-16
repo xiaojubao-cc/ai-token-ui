@@ -5,9 +5,12 @@ export interface UserItem {
   businessName: string
   email?: string
   phone?: string
+  userId?: string
+  accountId?: string
+  accessKey?: string
+  securityKey?: string
   role: 'ADMIN' | 'USER'
   apiKeyCount?: number
-  associatedModels?: string
   status: number
   createTime?: string
 }
@@ -35,9 +38,9 @@ export interface UserApiKeyItem {
   id?: number
   userId?: number
   apikey: string
-  modelId?: number
-  modelName?: string
+  secretKey?: string
   status: number
+  createTime?: string
 }
 
 /** 用户新增/编辑表单 */
@@ -47,6 +50,15 @@ export interface UserForm {
   password?: string
   email: string
   phone: string
+  userId?: string
+  accountId?: string
+  accessKey?: string
+  securityKey?: string
   role: 'ADMIN' | 'USER'
   status: number
+}
+
+/** 可用模型 */
+export interface AvailableModel {
+  modelName: string
 }

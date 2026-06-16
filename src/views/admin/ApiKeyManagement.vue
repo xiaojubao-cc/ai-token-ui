@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from 'vue'
 import { useApiKeyStore } from '@/stores/apikey'
+import { deleteUserApiKey } from '@/api/user'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import type { AdminApiKeyQuery } from '@/types/apikey'
 
 const store = useApiKeyStore()
@@ -11,6 +13,8 @@ const query = reactive<AdminApiKeyQuery>({
 })
 
 const dateRange = ref<[string, string] | null>(null)
+const modelDialogVisible = ref(false)
+const selectedUserId = ref<number | null>(null)
 
 onMounted(async () => {
   await store.fetchUserList()
@@ -50,6 +54,33 @@ function statusTag(status: number) {
 
 function statusText(status: number) {
   return status === 1 ? '启用' : '禁用'
+}
+
+async function handleToggleStatus(row: { id: number; useStatus: number }) {
+  const newStatus = row.useStatus === 1 ? 0 : 1
+  await store.updateStatus(row.id, newStatus)
+  await loadData()
+}
+
+async function handleDelete(row: { id: number; apikey: string }) {
+  try {
+    await ElMessageBox.confirm(
+      `确定要删除该 API Key 吗？`,
+      '确认删除',
+      { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' },
+    )
+    await deleteUserApiKey(row.id)
+    ElMessage.success('删除成功')
+    await loadData()
+  } catch {
+    // 取消操作
+  }
+}
+
+async function handleShowModels(row: { userId: number }) {
+  selectedUserId.value = row.userId
+  await store.fetchAvailableModels(row.userId)
+  modelDialogVisible.value = true
 }
 </script>
 
@@ -94,11 +125,11 @@ function statusText(status: number) {
     <el-card shadow="never" class="table-card">
       <el-table :data="store.list" v-loading="store.loading" stripe>
         <el-table-column type="index" :index="(idx: number) => (query.page - 1) * query.pageSize + idx + 1" label="序号" width="70" />
-        <el-table-column prop="apikey" label="API Key" min-width="200" show-overflow-tooltip />
-        <el-table-column prop="username" label="所属用户" width="120" />
-        <el-table-column prop="modelName" label="关联模型" width="160">
+        <el-table-column prop="apikey" label="API Key" min-width="240" show-overflow-tooltip />
+        <el-table-column prop="username" label="所属用户" min-width="140" show-overflow-tooltip />
+        <el-table-column prop="businessName" label="公司名称" min-width="160" show-overflow-tooltip>
           <template #default="{ row }">
-            {{ row.modelName || '-' }}
+            {{ row.businessName || '-' }}
           </template>
         </el-table-column>
         <el-table-column prop="useStatus" label="状态" width="80">
@@ -108,7 +139,25 @@ function statusText(status: number) {
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" width="180" />
+        <el-table-column prop="createTime" label="创建时间" min-width="160" />
+        <el-table-column label="操作" width="280" fixed="right">
+          <template #default="{ row }">
+<!--            <el-button type="primary" link size="small" @click="handleShowModels(row)">-->
+<!--              可用模型-->
+<!--            </el-button>-->
+            <el-button type="danger" link size="small" @click="handleDelete(row)">
+              删除
+            </el-button>
+            <el-button
+              :type="row.useStatus === 1 ? 'warning' : 'success'"
+              link
+              size="small"
+              @click="handleToggleStatus(row)"
+            >
+              {{ row.useStatus === 1 ? '禁用' : '启用' }}
+            </el-button>
+          </template>
+        </el-table-column>
       </el-table>
 
       <div class="pagination-wrap">
@@ -116,12 +165,20 @@ function statusText(status: number) {
           v-model:currentPage="query.page"
           v-model:pageSize="query.pageSize"
           :total="store.total"
-          :pageSizes="[10]"
+          :pageSizes="[10, 20, 50]"
           layout="total, sizes, prev, pager, next"
-          
+
         />
       </div>
     </el-card>
+
+    <!-- 可用模型弹窗隐藏，暂时没有实际意义 -->
+<!--    <el-dialog v-model="modelDialogVisible" title="可用模型列表" width="500px">-->
+<!--      <el-table :data="store.availableModels" stripe size="small">-->
+<!--        <el-table-column type="index" label="序号" width="70" />-->
+<!--        <el-table-column prop="modelName" label="模型名称" />-->
+<!--      </el-table>-->
+<!--    </el-dialog>-->
   </div>
 </template>
 

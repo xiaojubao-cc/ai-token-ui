@@ -31,6 +31,8 @@ const rules = {
 watch(() => props.visible, (val) => {
   if (val) {
     isEdit.value = !!props.model
+    // 先重置表单校验状态，再赋值，否则 resetFields 会清空已回显的数据
+    formRef.value?.resetFields()
     if (props.model) {
       form.modelName = props.model.modelName
       form.modelCode = props.model.modelCode
@@ -40,7 +42,11 @@ watch(() => props.visible, (val) => {
       form.modelCode = ''
       form.description = ''
     }
-    formRef.value?.resetFields()
+  } else {
+    // 弹窗关闭后清空表单缓存，避免下次打开时残留数据
+    form.modelName = ''
+    form.modelCode = ''
+    form.description = ''
   }
 })
 

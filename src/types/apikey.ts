@@ -3,10 +3,9 @@ export interface ApiKeyItem {
   id: number
   userId: number
   username?: string
+  businessName?: string
   apikey: string
-  modelId?: number
-  modelName?: string
-  modelCode?: string
+  secretKey?: string
   useStatus: number
   createTime?: string
 }
