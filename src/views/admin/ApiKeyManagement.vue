@@ -125,6 +125,7 @@ async function handleShowModels(row: { userId: number }) {
     <el-card shadow="never" class="table-card">
       <el-table :data="store.list" v-loading="store.loading" stripe>
         <el-table-column type="index" :index="(idx: number) => (query.page - 1) * query.pageSize + idx + 1" label="序号" width="70" />
+        <el-table-column prop="id" label="API KeyId" min-width="70" show-overflow-tooltip />
         <el-table-column prop="apikey" label="API Key" min-width="240" show-overflow-tooltip />
         <el-table-column prop="username" label="所属用户" min-width="140" show-overflow-tooltip />
         <el-table-column prop="businessName" label="公司名称" min-width="160" show-overflow-tooltip>
